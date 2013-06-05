@@ -13,7 +13,6 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: @white;
   color: @dark-grey;
   font-family: @sans;
   font-size: 1.125em;
@@ -46,7 +45,7 @@ hr {
 .button () {
   padding: 5px 15px 5px 15px;
   border: 3px solid @light-grey;
-  .border-radius(20px);
+  .border-radius(10px);
   color: @med-grey;
   &:hover {
     color: @white;
@@ -78,6 +77,10 @@ aside {
       .border-radius(70px);
     }
 
+    #bookmarks {
+      display: none;
+    }
+
     ul {
       margin: 40px 0 0 0;
       padding-left: 0;
@@ -85,12 +88,34 @@ aside {
       list-style-type: none;
 
       li {
-        margin-right: 5px;
-        display: inline;
+        margin: 0 5px 20px 0;
+        display: inline-block;
 
         a {
           .button()
         }
+      }
+    }
+
+    h3 {
+      margin: 50px 0 20px 0;
+      font-size: 0.625em;
+      text-transform: uppercase;
+    }
+
+    dl {
+      font-size: 0.75em;
+
+      dt {
+        font-weight: bold;
+
+        a {
+          color: @dark-grey;
+        }
+      }
+
+      dd {
+        margin: 0 0 20px 0;
       }
     }
   }
@@ -99,12 +124,11 @@ aside {
 main {
   header {
     padding: 40px;
-    border-top: @light-grey 1px solid;
-    border-bottom: @light-grey 1px solid;
 
     p {
       font-weight: bold;
       font-size: 0.625em;
+      text-align: center;
       text-transform: uppercase;
     }
   }
@@ -116,7 +140,7 @@ main {
     }
 
     div#article_text {
-      line-height: 1.375em;
+      line-height: 1.5em;
       a {
         text-decoration: underline;
       }
@@ -158,8 +182,6 @@ main {
   }
 
   footer {
-    border-top: @light-grey 1px solid;
-    border-bottom: @light-grey 1px solid;
     padding: 40px;
 
     a.button_accent {
@@ -181,10 +203,8 @@ main {
   aside {
     width: 25%;
     height: 100%;
-    position: fixed;
     top: 0;
     left: 0;
-    border-right: @light-grey 1px solid;
 
     h2 {
       margin: 10px 0 0 0;
@@ -193,11 +213,8 @@ main {
     div#user_meta {
       text-align: left;
 
-      ul {
-        li {
-          margin-bottom: 26px;
-          display: block;
-        }
+      #bookmarks {
+        display: block;
       }
     }
   }
@@ -215,6 +232,10 @@ main {
 
     header {
       border-top: 0;
+
+      p {
+        text-align: left;
+      }
     }
   }
 }
