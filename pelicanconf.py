@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-AUTHOR = u'Brad Dillon'
+AUTHOR = u'J. Bradford Dillon'
 SITENAME = u'Just call me Brad'
 TAGLINE = u'Husband, father, iOS Developer at Double Encore, amateur yo-yoer, occasional game tinkerer, audiobook enthusiast. You can just call me Brad.'
-SITEURL = ''
+SITEURL = 'http://jbradforddillon.github.io'
 
 TIMEZONE = 'Europe/Paris'
 
@@ -31,4 +31,12 @@ DEFAULT_PAGINATION = False
 THEME = 'themes/svbhack'
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = True
+
+PINBOARD_TOKEN = "jbradforddillon:BE694F811952E55D4B20"
+PINBOARD_URL = "https://pinboard.in/u:jbradforddillon/t:%23/"
+PINBOARD_COUNT = 5
+PINBOARD_TAG = '#'
+
+PLUGIN_PATH = '../pelican-pinboard'
+PLUGINS = ['pelicanboard']
