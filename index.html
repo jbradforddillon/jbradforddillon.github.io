@@ -24,6 +24,13 @@
             <p class="subtitle">(the J is silent)</p>
         </div>
     </div>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <span class="copyright">&copy; <span id="year"></span> J. Bradford Dillon</span>
+            <span class="divider">|</span>
+            <span class="quip" id="quip"></span>
+        </div>
+    </footer>
     <script>
         const jLetter = document.querySelector('.j-letter');
         const subtitle = document.querySelector('.subtitle');
@@ -38,6 +45,37 @@
         jLetter.addEventListener('mouseleave', () => {
             subtitle.style.opacity = '0';
         });
+
+        // Footer functionality
+        const quips = [
+            "Perpetually under construction. It's all just vibes",
+            "Built by AI, one vibe at a time",
+            "Vibes first, documentation never",
+            "Shipping bugs with confidence since today",
+            "No roadmap, just vibes",
+            "Refactored by feelings",
+            "100% test coverage not included",
+            "Breaking prod with style",
+            "Vibe-driven development in action",
+            "Changelog? We don't do that here",
+            "Coded during a particularly good mood",
+            "The bugs are features in disguise",
+            "Compiled with chaos energy",
+            "Semantically correct? Who knows!",
+            "Git history? It's a journey, not a story",
+            "Pushing to main like it's nothing",
+            "No sprints, just vibes and coffee",
+            "README pending, vibes delivered",
+            "Best practices? We're inventing our own",
+            "Quality assurance is just a vibe check"
+        ];
+
+        // Set random quip
+        const randomQuip = quips[Math.floor(Math.random() * quips.length)];
+        document.getElementById('quip').textContent = randomQuip;
+
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
     </script>
 </body>
 </html>
