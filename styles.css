@@ -8,13 +8,11 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     background: #f8f9fa;
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 2rem;
 }
 
 .container {
-    text-align: center;
+    text-align: left;
 }
 
 h1 {
@@ -22,6 +20,30 @@ h1 {
     font-size: 4rem;
     font-weight: 700;
     animation: fadeIn 1s ease-in;
+    margin-bottom: 0.5rem;
+}
+
+h2 {
+    color: #212529;
+    font-size: 2rem;
+    font-weight: 600;
+    animation: fadeIn 1s ease-in 0.2s both;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #adb5bd;
+    font-size: 1rem;
+    font-weight: 400;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    white-space: nowrap;
+    transform: translateX(-50%);
+}
+
+.j-letter {
+    cursor: pointer;
 }
 
 @keyframes fadeIn {
@@ -38,5 +60,13 @@ h1 {
 @media (max-width: 768px) {
     h1 {
         font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
     }
 }

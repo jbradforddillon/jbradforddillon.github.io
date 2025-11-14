@@ -9,6 +9,25 @@
 <body>
     <div class="container">
         <h1>Hello World</h1>
+        <div class="name-section">
+            <h2>My name is <span class="j-letter">J</span>. Bradford Dillon</h2>
+            <p class="subtitle">(the J is silent)</p>
+        </div>
     </div>
+    <script>
+        const jLetter = document.querySelector('.j-letter');
+        const subtitle = document.querySelector('.subtitle');
+
+        jLetter.addEventListener('mousemove', (e) => {
+            subtitle.style.position = 'fixed';
+            subtitle.style.left = e.clientX + 'px';
+            subtitle.style.top = (e.clientY + 20) + 'px';
+            subtitle.style.opacity = '0.6';
+        });
+
+        jLetter.addEventListener('mouseleave', () => {
+            subtitle.style.opacity = '0';
+        });
+    </script>
 </body>
 </html>
