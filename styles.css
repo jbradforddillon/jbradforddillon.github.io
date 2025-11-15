@@ -89,7 +89,8 @@ body {
 .container {
     text-align: left;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 2rem;
 }
 
@@ -108,7 +109,7 @@ body {
 
 h1 {
     color: #212529;
-    font-size: 4rem;
+    font-size: 6rem;
     font-weight: 700;
     animation: fadeIn 1s ease-in;
     margin-bottom: 0.5rem;
@@ -116,7 +117,7 @@ h1 {
 
 h2 {
     color: #212529;
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: 600;
     animation: fadeIn 1s ease-in 0.2s both;
     margin-bottom: 0.5rem;
@@ -124,7 +125,7 @@ h2 {
 
 .subtitle {
     color: #adb5bd;
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: 400;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
@@ -135,11 +136,22 @@ h2 {
 
 .bio {
     color: #495057;
-    font-size: 1.125rem;
+    font-size: 1.5rem;
     font-weight: 400;
     line-height: 1.6;
     margin-top: 1.5rem;
     animation: fadeIn 1s ease-in 0.4s both;
+}
+
+.bio a {
+    color: #212529;
+    text-decoration: none;
+    border-bottom: 2px solid #dee2e6;
+    transition: border-color 0.3s ease;
+}
+
+.bio a:hover {
+    border-color: #495057;
 }
 
 .j-letter {
@@ -170,15 +182,19 @@ h2 {
     }
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 4rem;
     }
 
     h2 {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .subtitle {
         font-size: 1rem;
+    }
+
+    .bio {
+        font-size: 1.125rem;
     }
 }
 
