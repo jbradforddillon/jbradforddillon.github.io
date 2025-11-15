@@ -133,6 +133,15 @@ h2 {
     transform: translateX(-50%);
 }
 
+.bio {
+    color: #495057;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-top: 1.5rem;
+    animation: fadeIn 1s ease-in 0.4s both;
+}
+
 .j-letter {
     cursor: pointer;
 }
@@ -179,8 +188,7 @@ h2 {
     bottom: 0;
     left: 0;
     right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    background: transparent;
     padding: 1rem 2rem;
     z-index: 100;
 }
