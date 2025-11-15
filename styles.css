@@ -133,6 +133,15 @@ h2 {
     transform: translateX(-50%);
 }
 
+.bio {
+    color: #495057;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-top: 1.5rem;
+    animation: fadeIn 1s ease-in 0.4s both;
+}
+
 .j-letter {
     cursor: pointer;
 }
