@@ -88,6 +88,22 @@ body {
 
 .container {
     text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    animation: fadeIn 1s ease-in;
+}
+
+.content-section {
+    flex: 1;
 }
 
 h1 {
@@ -133,6 +149,17 @@ h2 {
 }
 
 @media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    .profile-image {
+        width: 120px;
+        height: 120px;
+    }
+
     h1 {
         font-size: 2.5rem;
     }
