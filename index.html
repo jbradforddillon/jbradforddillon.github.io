@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Shape 1: Original octagon (center) -->
     <svg class="background-shape" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
         <g class="rotating-shape">
             <polygon points="200,50 293.3,93.3 336.6,186.6 293.3,280 200,323.3 106.7,280 63.4,186.6 106.7,93.3"
@@ -15,6 +16,42 @@
                      fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.2"/>
             <polygon points="200,110 253.1,133.1 276.2,186.6 253.1,240 200,263.1 146.9,240 123.8,186.6 146.9,133.1"
                      fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.15"/>
+        </g>
+    </svg>
+
+    <!-- Shape 2: Hexagon (top-right) -->
+    <svg class="background-shape background-shape-2" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <g class="rotating-shape-reverse">
+            <polygon points="200,60 300,120 300,240 200,300 100,240 100,120"
+                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.25"/>
+            <polygon points="200,90 270,135 270,225 200,270 130,225 130,135"
+                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.18"/>
+            <polygon points="200,120 240,150 240,210 200,240 160,210 160,150"
+                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.12"/>
+        </g>
+    </svg>
+
+    <!-- Shape 3: Pentagon (bottom-left) -->
+    <svg class="background-shape background-shape-3" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <g class="rotating-shape-fast">
+            <polygon points="200,70 310,155 260,285 140,285 90,155"
+                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.28"/>
+            <polygon points="200,110 280,170 245,270 155,270 120,170"
+                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.2"/>
+            <polygon points="200,145 250,185 230,255 170,255 150,185"
+                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.14"/>
+        </g>
+    </svg>
+
+    <!-- Shape 4: Diamond/Square combo (right side) -->
+    <svg class="background-shape background-shape-4" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <g class="rotating-shape-slow">
+            <polygon points="200,50 330,180 200,310 70,180"
+                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.22"/>
+            <rect x="110" y="110" width="180" height="180"
+                  fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.16"/>
+            <polygon points="200,130 270,200 200,270 130,200"
+                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.12"/>
         </g>
     </svg>
     <div class="container">

@@ -24,9 +24,48 @@ body {
     pointer-events: none;
 }
 
+/* Shape 2: Top-right, smaller, rotates counter-clockwise */
+.background-shape-2 {
+    top: 15%;
+    left: 75%;
+    width: 350px;
+    height: 350px;
+}
+
+/* Shape 3: Bottom-left, smallest, rotates fast clockwise */
+.background-shape-3 {
+    top: 70%;
+    left: 20%;
+    width: 280px;
+    height: 280px;
+}
+
+/* Shape 4: Right side, larger, rotates very slowly counter-clockwise */
+.background-shape-4 {
+    top: 55%;
+    left: 85%;
+    width: 450px;
+    height: 450px;
+}
+
 .rotating-shape {
     transform-origin: center;
     animation: subtleRotate 120s linear infinite;
+}
+
+.rotating-shape-reverse {
+    transform-origin: center;
+    animation: subtleRotateReverse 90s linear infinite;
+}
+
+.rotating-shape-fast {
+    transform-origin: center;
+    animation: subtleRotate 70s linear infinite;
+}
+
+.rotating-shape-slow {
+    transform-origin: center;
+    animation: subtleRotateReverse 150s linear infinite;
 }
 
 @keyframes subtleRotate {
@@ -35,6 +74,15 @@ body {
     }
     to {
         transform: rotate(360deg);
+    }
+}
+
+@keyframes subtleRotateReverse {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0deg);
     }
 }
 
@@ -106,7 +154,6 @@ h2 {
     right: 0;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    border-top: 1px solid #dee2e6;
     padding: 1rem 2rem;
     z-index: 100;
 }
