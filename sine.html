@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sine Wave Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="sineCanvas"></canvas>
+
+    <script>
+        const canvas = document.getElementById('sineCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size to window size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        let time = 0;
+        const waveCount = 5;
+        const amplitude = 60;
+        const frequency = 0.02;
+        const speed = 0.05;
+
+        function drawSineWave() {
+            // Clear with slight transparency for trail effect
+            ctx.fillStyle = 'rgba(102, 126, 234, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw multiple sine waves
+            for (let w = 0; w < waveCount; w++) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(255, 255, 255, ${0.3 - w * 0.05})`;
+                ctx.lineWidth = 3;
+
+                const offset = (w * Math.PI * 2) / waveCount;
+                const yOffset = canvas.height / 2 + (w - waveCount / 2) * 40;
+
+                for (let x = 0; x < canvas.width; x++) {
+                    const y = yOffset + Math.sin(x * frequency + time + offset) * amplitude;
+
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+
+                ctx.stroke();
+            }
+
+            // Draw particles following the main wave
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            for (let i = 0; i < 20; i++) {
+                const x = (time * 50 + i * canvas.width / 20) % canvas.width;
+                const y = canvas.height / 2 + Math.sin(x * frequency + time) * amplitude;
+                ctx.beginPath();
+                ctx.arc(x, y, 3, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            time += speed;
+            requestAnimationFrame(drawSineWave);
+        }
+
+        drawSineWave();
+    </script>
+</body>
+</html>
