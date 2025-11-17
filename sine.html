@@ -39,7 +39,6 @@
         window.addEventListener('resize', resizeCanvas);
 
         const waveCount = 5;
-        const frequency = 0.02;
         const baseSpeed = 0.0125; // 1/4 of original speed (0.05)
 
         // Create waves with randomized speeds
@@ -57,6 +56,9 @@
         function drawSineWave() {
             // Calculate amplitude based on viewport height
             const amplitude = canvas.height / 2.5; // Max height reaches near top and bottom
+
+            // Calculate frequency so one full cycle fits across viewport width
+            const frequency = (2 * Math.PI) / canvas.width;
 
             // Clear with slight transparency for trail effect
             ctx.fillStyle = 'rgba(102, 126, 234, 0.05)';
