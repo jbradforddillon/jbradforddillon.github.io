@@ -38,28 +38,39 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        let time = 0;
         const waveCount = 5;
-        const amplitude = 60;
         const frequency = 0.02;
-        const speed = 0.05;
+        const baseSpeed = 0.0125; // 1/4 of original speed (0.05)
+
+        // Create waves with randomized speeds
+        const waves = [];
+        for (let i = 0; i < waveCount; i++) {
+            waves.push({
+                time: 0,
+                speed: baseSpeed * (0.5 + Math.random() * 1.5), // Random speed between 0.5x and 2x base speed
+                offset: (i * Math.PI * 2) / waveCount,
+                yOffset: canvas.height / 2 + (i - waveCount / 2) * 40,
+                opacity: 0.3 - i * 0.05
+            });
+        }
 
         function drawSineWave() {
+            // Calculate amplitude based on viewport height
+            const amplitude = canvas.height / 2.5; // Max height reaches near top and bottom
+
             // Clear with slight transparency for trail effect
             ctx.fillStyle = 'rgba(102, 126, 234, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Draw multiple sine waves
+            // Draw multiple sine waves with individual speeds
             for (let w = 0; w < waveCount; w++) {
+                const wave = waves[w];
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(255, 255, 255, ${0.3 - w * 0.05})`;
+                ctx.strokeStyle = `rgba(255, 255, 255, ${wave.opacity})`;
                 ctx.lineWidth = 3;
 
-                const offset = (w * Math.PI * 2) / waveCount;
-                const yOffset = canvas.height / 2 + (w - waveCount / 2) * 40;
-
                 for (let x = 0; x < canvas.width; x++) {
-                    const y = yOffset + Math.sin(x * frequency + time + offset) * amplitude;
+                    const y = wave.yOffset + Math.sin(x * frequency + wave.time + wave.offset) * amplitude;
 
                     if (x === 0) {
                         ctx.moveTo(x, y);
@@ -69,19 +80,19 @@
                 }
 
                 ctx.stroke();
+                wave.time += wave.speed; // Each wave moves at its own speed
             }
 
             // Draw particles following the main wave
             ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
             for (let i = 0; i < 20; i++) {
-                const x = (time * 50 + i * canvas.width / 20) % canvas.width;
-                const y = canvas.height / 2 + Math.sin(x * frequency + time) * amplitude;
+                const x = (waves[0].time * 50 + i * canvas.width / 20) % canvas.width;
+                const y = canvas.height / 2 + Math.sin(x * frequency + waves[0].time) * amplitude;
                 ctx.beginPath();
                 ctx.arc(x, y, 3, 0, Math.PI * 2);
                 ctx.fill();
             }
 
-            time += speed;
             requestAnimationFrame(drawSineWave);
         }
 
