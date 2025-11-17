@@ -13,7 +13,8 @@
 
         body {
             overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: white;
+            font-family: system-ui, -apple-system, sans-serif;
         }
 
         canvas {
@@ -21,10 +22,105 @@
             width: 100%;
             height: 100vh;
         }
+
+        .control-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            min-width: 280px;
+            z-index: 100;
+        }
+
+        .control-panel h3 {
+            margin: 0 0 15px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 13px;
+            color: #555;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .control-group input[type="range"] {
+            width: 100%;
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .control-group input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #333;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .control-group input[type="range"]::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: #333;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        .control-group .value-display {
+            display: inline-block;
+            float: right;
+            font-size: 12px;
+            color: #666;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
     <canvas id="sineCanvas"></canvas>
+
+    <div class="control-panel">
+        <h3>Wave Controls</h3>
+
+        <div class="control-group">
+            <label>
+                Base Frequency
+                <span class="value-display" id="frequencyValue">1.0</span>
+            </label>
+            <input type="range" id="frequency" min="0.1" max="5" step="0.1" value="1">
+        </div>
+
+        <div class="control-group">
+            <label>
+                Base Amplitude
+                <span class="value-display" id="amplitudeValue">1.0</span>
+            </label>
+            <input type="range" id="amplitude" min="0.1" max="2" step="0.1" value="1">
+        </div>
+
+        <div class="control-group">
+            <label>
+                Animation Speed
+                <span class="value-display" id="speedValue">1.0</span>
+            </label>
+            <input type="range" id="speed" min="0.1" max="3" step="0.1" value="1">
+        </div>
+    </div>
 
     <script>
         const canvas = document.getElementById('sineCanvas');
@@ -38,15 +134,44 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
+        // Control panel elements
+        const frequencySlider = document.getElementById('frequency');
+        const amplitudeSlider = document.getElementById('amplitude');
+        const speedSlider = document.getElementById('speed');
+        const frequencyValue = document.getElementById('frequencyValue');
+        const amplitudeValue = document.getElementById('amplitudeValue');
+        const speedValue = document.getElementById('speedValue');
+
+        // Base control values
+        let baseFrequencyMultiplier = 1;
+        let baseAmplitudeMultiplier = 1;
+        let baseSpeedMultiplier = 1;
+
+        // Update control displays
+        frequencySlider.addEventListener('input', (e) => {
+            baseFrequencyMultiplier = parseFloat(e.target.value);
+            frequencyValue.textContent = baseFrequencyMultiplier.toFixed(1);
+        });
+
+        amplitudeSlider.addEventListener('input', (e) => {
+            baseAmplitudeMultiplier = parseFloat(e.target.value);
+            amplitudeValue.textContent = baseAmplitudeMultiplier.toFixed(1);
+        });
+
+        speedSlider.addEventListener('input', (e) => {
+            baseSpeedMultiplier = parseFloat(e.target.value);
+            speedValue.textContent = baseSpeedMultiplier.toFixed(1);
+        });
+
         const waveCount = 5;
         const baseSpeed = 0.0125; // 1/4 of original speed (0.05)
 
-        // Create waves with randomized speeds
+        // Create waves with randomized speeds and jitter factors
         const waves = [];
         for (let i = 0; i < waveCount; i++) {
             waves.push({
                 time: 0,
-                speed: baseSpeed * (0.5 + Math.random() * 1.5), // Random speed between 0.5x and 2x base speed
+                speedJitter: 0.5 + Math.random() * 1.5, // Random jitter between 0.5x and 2x
                 offset: (i * Math.PI * 2) / waveCount,
                 yOffset: canvas.height / 2 + (i - waveCount / 2) * 40,
                 opacity: 0.3 - i * 0.05
@@ -54,22 +179,24 @@
         }
 
         function drawSineWave() {
-            // Calculate amplitude based on viewport height
-            const amplitude = canvas.height / 2.5; // Max height reaches near top and bottom
+            // Calculate base amplitude and frequency
+            const baseAmplitude = canvas.height / 2.5;
+            const baseFrequency = (2 * Math.PI) / canvas.width;
 
-            // Calculate frequency so one full cycle fits across viewport width
-            const frequency = (2 * Math.PI) / canvas.width;
+            // Apply control multipliers
+            const amplitude = baseAmplitude * baseAmplitudeMultiplier;
+            const frequency = baseFrequency * baseFrequencyMultiplier;
 
-            // Clear with slight transparency for trail effect
-            ctx.fillStyle = 'rgba(102, 126, 234, 0.05)';
+            // Clear with white background
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // Draw multiple sine waves with individual speeds
             for (let w = 0; w < waveCount; w++) {
                 const wave = waves[w];
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(255, 255, 255, ${wave.opacity})`;
-                ctx.lineWidth = 3;
+                ctx.strokeStyle = `rgba(0, 0, 0, ${wave.opacity})`;
+                ctx.lineWidth = 1;
 
                 for (let x = 0; x < canvas.width; x++) {
                     const y = wave.yOffset + Math.sin(x * frequency + wave.time + wave.offset) * amplitude;
@@ -82,11 +209,12 @@
                 }
 
                 ctx.stroke();
-                wave.time += wave.speed; // Each wave moves at its own speed
+                // Apply base speed with jitter and control multiplier
+                wave.time += baseSpeed * wave.speedJitter * baseSpeedMultiplier;
             }
 
             // Draw particles following the main wave
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
             for (let i = 0; i < 20; i++) {
                 const x = (waves[0].time * 50 + i * canvas.width / 20) % canvas.width;
                 const y = canvas.height / 2 + Math.sin(x * frequency + waves[0].time) * amplitude;
