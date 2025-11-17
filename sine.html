@@ -163,7 +163,7 @@
             speedValue.textContent = baseSpeedMultiplier.toFixed(1);
         });
 
-        const waveCount = 5;
+        const waveCount = 9;
         const baseSpeed = 0.0125; // 1/4 of original speed (0.05)
 
         // Create waves with randomized speeds and jitter factors
@@ -199,7 +199,12 @@
                 ctx.lineWidth = 1;
 
                 for (let x = 0; x < canvas.width; x++) {
-                    const y = wave.yOffset + Math.sin(x * frequency + wave.time + wave.offset) * amplitude;
+                    // Calculate amplitude envelope: shrink to 1/8 at edges, full amplitude in center
+                    const normalizedX = x / canvas.width;
+                    const amplitudeScale = 1/8 + (1 - 1/8) * Math.sin(normalizedX * Math.PI);
+                    const scaledAmplitude = amplitude * amplitudeScale;
+
+                    const y = wave.yOffset + Math.sin(x * frequency + wave.time + wave.offset) * scaledAmplitude;
 
                     if (x === 0) {
                         ctx.moveTo(x, y);
@@ -211,16 +216,6 @@
                 ctx.stroke();
                 // Apply base speed with jitter and control multiplier
                 wave.time += baseSpeed * wave.speedJitter * baseSpeedMultiplier;
-            }
-
-            // Draw particles following the main wave
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-            for (let i = 0; i < 20; i++) {
-                const x = (waves[0].time * 50 + i * canvas.width / 20) % canvas.width;
-                const y = canvas.height / 2 + Math.sin(x * frequency + waves[0].time) * amplitude;
-                ctx.beginPath();
-                ctx.arc(x, y, 3, 0, Math.PI * 2);
-                ctx.fill();
             }
 
             requestAnimationFrame(drawSineWave);
