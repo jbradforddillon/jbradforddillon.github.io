@@ -7,53 +7,7 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Shape 1: Original octagon (center) -->
-    <svg class="background-shape" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-        <g class="rotating-shape">
-            <polygon points="200,50 293.3,93.3 336.6,186.6 293.3,280 200,323.3 106.7,280 63.4,186.6 106.7,93.3"
-                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.3"/>
-            <polygon points="200,80 273.2,113.2 306.4,186.6 273.2,260 200,293.2 126.8,260 93.6,186.6 126.8,113.2"
-                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.2"/>
-            <polygon points="200,110 253.1,133.1 276.2,186.6 253.1,240 200,263.1 146.9,240 123.8,186.6 146.9,133.1"
-                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.15"/>
-        </g>
-    </svg>
-
-    <!-- Shape 2: Hexagon (top-right) -->
-    <svg class="background-shape background-shape-2" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-        <g class="rotating-shape-reverse">
-            <polygon points="200,60 300,120 300,240 200,300 100,240 100,120"
-                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.25"/>
-            <polygon points="200,90 270,135 270,225 200,270 130,225 130,135"
-                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.18"/>
-            <polygon points="200,120 240,150 240,210 200,240 160,210 160,150"
-                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.12"/>
-        </g>
-    </svg>
-
-    <!-- Shape 3: Pentagon (bottom-left) -->
-    <svg class="background-shape background-shape-3" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-        <g class="rotating-shape-fast">
-            <polygon points="200,70 310,155 260,285 140,285 90,155"
-                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.28"/>
-            <polygon points="200,110 280,170 245,270 155,270 120,170"
-                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.2"/>
-            <polygon points="200,145 250,185 230,255 170,255 150,185"
-                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.14"/>
-        </g>
-    </svg>
-
-    <!-- Shape 4: Diamond/Square combo (right side) -->
-    <svg class="background-shape background-shape-4" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-        <g class="rotating-shape-slow">
-            <polygon points="200,50 330,180 200,310 70,180"
-                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.22"/>
-            <rect x="110" y="110" width="180" height="180"
-                  fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.16"/>
-            <polygon points="200,130 270,200 200,270 130,200"
-                     fill="none" stroke="#dee2e6" stroke-width="1" opacity="0.12"/>
-        </g>
-    </svg>
+    <canvas id="sineCanvas"></canvas>
     <div class="container">
         <a href="https://www.linkedin.com/in/jbradforddillon/" target="_blank" rel="noopener noreferrer">
             <img src="IMG_3484.jpeg" alt="Profile picture" class="profile-image">
@@ -76,6 +30,84 @@
         </div>
     </footer>
     <script>
+        // Sine wave background
+        const canvas = document.getElementById('sineCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size to window size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Locked control values
+        const baseFrequencyMultiplier = 0.2;
+        const baseAmplitudeMultiplier = 0.7;
+        const baseSpeedMultiplier = 0.2;
+
+        const waveCount = 9;
+        const baseSpeed = 0.0125;
+
+        // Create waves with randomized speeds and jitter factors
+        const waves = [];
+        for (let i = 0; i < waveCount; i++) {
+            waves.push({
+                time: 0,
+                speedJitter: 0.5 + Math.random() * 1.5,
+                offset: (i * Math.PI * 2) / waveCount,
+                yOffset: canvas.height / 2 + (i - waveCount / 2) * 40,
+                opacity: 0.3 - i * 0.05
+            });
+        }
+
+        function drawSineWave() {
+            // Calculate base amplitude and frequency
+            const baseAmplitude = canvas.height / 2.5;
+            const baseFrequency = (2 * Math.PI) / canvas.width;
+
+            // Apply control multipliers
+            const amplitude = baseAmplitude * baseAmplitudeMultiplier;
+            const frequency = baseFrequency * baseFrequencyMultiplier;
+
+            // Clear with white background
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw multiple sine waves with individual speeds
+            for (let w = 0; w < waveCount; w++) {
+                const wave = waves[w];
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(0, 0, 0, ${wave.opacity})`;
+                ctx.lineWidth = 1;
+
+                for (let x = 0; x < canvas.width; x++) {
+                    // Calculate amplitude envelope: shrink to 1/8 at edges, full amplitude in center
+                    const normalizedX = x / canvas.width;
+                    const amplitudeScale = 1/8 + (1 - 1/8) * Math.sin(normalizedX * Math.PI);
+                    const scaledAmplitude = amplitude * amplitudeScale;
+
+                    const y = wave.yOffset + Math.sin(x * frequency + wave.time + wave.offset) * scaledAmplitude;
+
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+
+                ctx.stroke();
+                // Apply base speed with jitter and control multiplier
+                wave.time += baseSpeed * wave.speedJitter * baseSpeedMultiplier;
+            }
+
+            requestAnimationFrame(drawSineWave);
+        }
+
+        drawSineWave();
+
+        // J letter interaction
         const jLetter = document.querySelector('.j-letter');
         const subtitle = document.querySelector('.subtitle');
 
