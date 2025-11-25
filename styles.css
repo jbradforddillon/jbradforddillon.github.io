@@ -30,6 +30,8 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .profile-image {
@@ -61,16 +63,7 @@ h2 {
     margin-bottom: 0.5rem;
 }
 
-.subtitle {
-    color: #adb5bd;
-    font-size: 1.5rem;
-    font-weight: 400;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    pointer-events: none;
-    white-space: nowrap;
-    transform: translateX(-50%);
-}
+
 
 .bio {
     color: #495057;
@@ -92,15 +85,14 @@ h2 {
     border-color: #495057;
 }
 
-.j-letter {
-    cursor: pointer;
-}
+
 
 @keyframes fadeIn {
     from {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -127,9 +119,7 @@ h2 {
         font-size: 2rem;
     }
 
-    .subtitle {
-        font-size: 1rem;
-    }
+
 
     .bio {
         font-size: 1.125rem;

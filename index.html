@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello World</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <canvas id="sineCanvas"></canvas>
     <div class="container">
         <a href="https://www.linkedin.com/in/jbradforddillon/" target="_blank" rel="noopener noreferrer">
-            <img src="IMG_3484.jpeg" alt="Profile picture" class="profile-image">
+            <img src="headshot.jpeg" alt="Profile picture" class="profile-image">
         </a>
         <div class="content-section">
             <h1>Hello World</h1>
             <div class="name-section">
-                <h2>My name is <span class="j-letter">J</span>.&nbsp;Bradford&nbsp;Dillon</h2>
-                <p class="subtitle">(the J is silent)</p>
+                <h2>My name is <abbr title="the J is silent"
+                        style="text-decoration: none; cursor: help;">J</abbr>.&nbsp;Bradford&nbsp;Dillon</h2>
             </div>
             <p class="bio">I love building.</p>
-            <p class="bio">I've built websites, all sorts of apps, even a video platform once. Now, I build teams that deliver, at <a href="https://stablekernel.com" target="_blank" rel="noopener noreferrer">Stable Kernel</a> in&nbsp;Atlanta.</p>
+            <p class="bio">I've built websites, all sorts of apps, even a video platform once. Now, I build teams that
+                deliver, at <a href="https://stablekernel.com" target="_blank" rel="noopener noreferrer">Stable
+                    Kernel</a> in&nbsp;Atlanta.</p>
         </div>
     </div>
     <footer class="site-footer">
@@ -85,7 +89,7 @@
                 for (let x = 0; x < canvas.width; x++) {
                     // Calculate amplitude envelope: shrink to 1/8 at edges, full amplitude in center
                     const normalizedX = x / canvas.width;
-                    const amplitudeScale = 1/8 + (1 - 1/8) * Math.sin(normalizedX * Math.PI);
+                    const amplitudeScale = 1 / 8 + (1 - 1 / 8) * Math.sin(normalizedX * Math.PI);
                     const scaledAmplitude = amplitude * amplitudeScale;
 
                     const y = wave.yOffset + Math.sin(x * frequency + wave.time + wave.offset) * scaledAmplitude;
@@ -107,20 +111,8 @@
 
         drawSineWave();
 
-        // J letter interaction
-        const jLetter = document.querySelector('.j-letter');
-        const subtitle = document.querySelector('.subtitle');
 
-        jLetter.addEventListener('mousemove', (e) => {
-            subtitle.style.position = 'fixed';
-            subtitle.style.left = e.clientX + 'px';
-            subtitle.style.top = (e.clientY + 20) + 'px';
-            subtitle.style.opacity = '0.6';
-        });
-
-        jLetter.addEventListener('mouseleave', () => {
-            subtitle.style.opacity = '0';
-        });
     </script>
 </body>
+
 </html>
