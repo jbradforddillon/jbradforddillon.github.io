@@ -12,7 +12,7 @@
 body {
     font-family: var(--font-body);
     font-weight: 400;
-    font-size: 1.0625rem;
+    font-size: 1.125rem;
     line-height: 1.7;
     color: #333;
     background: #f8f9fa;
@@ -62,8 +62,8 @@ strong, b {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-headline);
-    font-weight: 400;
+    font-family: var(--font-body);
+    font-weight: 700;
     letter-spacing: 0.01em;
 }
 
