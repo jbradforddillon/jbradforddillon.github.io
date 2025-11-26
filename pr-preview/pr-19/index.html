@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Roboto+Slab:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <canvas id="sineCanvas"></canvas>
+    <div class="container">
+        <a href="https://www.linkedin.com/in/jbradforddillon/" target="_blank" rel="noopener noreferrer">
+            <img src="headshot.jpeg" alt="Profile picture" class="profile-image">
+        </a>
+        <div class="content-section">
+            <h1>Hello World</h1>
+            <div class="name-section">
+                <h2>My name is <abbr title="the J is silent"
+                        style="text-decoration: none; cursor: help;">J</abbr>.&nbsp;Bradford&nbsp;Dillon</h2>
+            </div>
+            <p class="bio">I love building.</p>
+            <p class="bio">I've built websites, all sorts of apps, even a video platform once. Now, I build teams that
+                deliver, at <a href="https://stablekernel.com" target="_blank" rel="noopener noreferrer">Stable
+                    Kernel</a> in&nbsp;Atlanta.</p>
+        </div>
+    </div>
+    <footer class="site-footer">
+        <div class="footer-content">
+            <span class="copyright">&copy; 2025 J.&nbsp;Bradford&nbsp;Dillon</span>
+            <span class="divider">|</span>
+            <span class="quip">Built with Claude, on my phone.</span>
+        </div>
+    </footer>
+    <script>
+        // Sine wave background
+        const canvas = document.getElementById('sineCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size to window size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Locked control values
+        const baseFrequencyMultiplier = 0.2;
+        const baseAmplitudeMultiplier = 0.7;
+        const baseSpeedMultiplier = 0.2;
+
+        const waveCount = 9;
+        const baseSpeed = 0.0125;
+
+        // Create waves with randomized speeds and jitter factors
+        const waves = [];
+        for (let i = 0; i < waveCount; i++) {
+            waves.push({
+                time: 0,
+                speedJitter: 0.5 + Math.random() * 1.5,
+                offset: (i * Math.PI * 2) / waveCount,
+                yOffset: canvas.height / 2 + (i - waveCount / 2) * 40,
+                opacity: 0.3 - i * 0.05
+            });
+        }
+
+        function drawSineWave() {
+            // Calculate base amplitude and frequency
+            const baseAmplitude = canvas.height / 2.5;
+            const baseFrequency = (2 * Math.PI) / canvas.width;
+
+            // Apply control multipliers
+            const amplitude = baseAmplitude * baseAmplitudeMultiplier;
+            const frequency = baseFrequency * baseFrequencyMultiplier;
+
+            // Clear with white background
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw multiple sine waves with individual speeds
+            for (let w = 0; w < waveCount; w++) {
+                const wave = waves[w];
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(0, 0, 0, ${wave.opacity})`;
+                ctx.lineWidth = 1;
+
+                for (let x = 0; x < canvas.width; x++) {
+                    // Calculate amplitude envelope: shrink to 1/8 at edges, full amplitude in center
+                    const normalizedX = x / canvas.width;
+                    const amplitudeScale = 1 / 8 + (1 - 1 / 8) * Math.sin(normalizedX * Math.PI);
+                    const scaledAmplitude = amplitude * amplitudeScale;
+
+                    const y = wave.yOffset + Math.sin(x * frequency + wave.time + wave.offset) * scaledAmplitude;
+
+                    if (x === 0) {
+                        ctx.moveTo(x, y);
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+
+                ctx.stroke();
+                // Apply base speed with jitter and control multiplier
+                wave.time += baseSpeed * wave.speedJitter * baseSpeedMultiplier;
+            }
+
+            requestAnimationFrame(drawSineWave);
+        }
+
+        drawSineWave();
+
+
+    </script>
+</body>
+
+</html>
