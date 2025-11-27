@@ -68,13 +68,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    font-family: var(--font-headline);
     color: #212529;
     font-size: 4.5rem;
     line-height: 1.0;
     animation: fadeIn 1s ease-in;
     margin-bottom: 0.5rem;
-    text-transform: uppercase;
 }
 
 h2 {
