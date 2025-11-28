@@ -92,7 +92,7 @@
             const frequency = baseFrequency * baseFrequencyMultiplier;
 
             // Clear with beige background
-            ctx.fillStyle = 'rgba(245, 240, 225, 0.05)';
+            ctx.fillStyle = '#f5f0e1';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // Draw multiple sine waves with individual speeds
@@ -100,7 +100,7 @@
                 const wave = waves[w];
                 ctx.beginPath();
                 ctx.strokeStyle = wave.color;
-                ctx.lineWidth = 8;
+                ctx.lineWidth = 16;
 
                 for (let x = 0; x < canvas.width; x++) {
                     // Calculate amplitude envelope: shrink to 1/8 at edges, full amplitude in center
