@@ -14,8 +14,8 @@ body {
     font-weight: 400;
     font-size: 1.125rem;
     line-height: 1.7;
-    color: #333;
-    background: #f8f9fa;
+    color: #1e3a5a;
+    background: #f5f0e1;
     min-height: 100vh;
     padding: 2rem;
     position: relative;
@@ -34,7 +34,7 @@ strong, b {
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: 0.3;
+    opacity: 0.4;
     pointer-events: none;
 }
 
@@ -68,7 +68,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    color: #212529;
+    color: #1a365d;
     font-size: 4.5rem;
     line-height: 1.0;
     animation: fadeIn 1s ease-in;
@@ -76,7 +76,7 @@ h1 {
 }
 
 h2 {
-    color: #212529;
+    color: #1a365d;
     font-size: 2.5rem;
     line-height: 1.15;
     animation: fadeIn 1s ease-in 0.2s both;
@@ -91,7 +91,7 @@ h3 {
 
 
 .bio {
-    color: #495057;
+    color: #2c4a6e;
     font-size: 1.125rem;
     font-weight: 400;
     line-height: 1.7;
@@ -112,7 +112,7 @@ a:hover {
 }
 
 .bio a {
-    color: #212529;
+    color: #1a365d;
 }
 
 
@@ -194,7 +194,7 @@ a:hover {
     flex-wrap: wrap;
     gap: 0.5rem;
     font-size: 0.875rem;
-    color: #6c757d;
+    color: #4a6b8a;
 }
 
 .copyright {
@@ -202,11 +202,11 @@ a:hover {
 }
 
 .divider {
-    color: #adb5bd;
+    color: #7a9ab8;
 }
 
 .quip {
-    color: #868e96;
+    color: #5d7d9a;
 }
 
 @media (max-width: 768px) {
