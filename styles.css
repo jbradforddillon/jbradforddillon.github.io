@@ -55,6 +55,24 @@ strong, b {
     object-fit: cover;
     flex-shrink: 0;
     animation: fadeIn 1s ease-in;
+    cursor: pointer;
+}
+
+.profile-image.bouncing {
+    position: fixed;
+    z-index: 1000;
+    animation: spin 0.5s linear infinite;
+    transition: left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                top 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .content-section {
