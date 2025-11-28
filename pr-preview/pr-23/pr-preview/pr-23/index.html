@@ -70,16 +70,17 @@
             '#bc6c25',  // Copper
         ];
 
-        // Create waves stacked vertically
+        // Create waves with randomized speeds and jitter factors
         const waves = [];
-        const spacing = canvas.height / (waveCount + 1);
         for (let i = 0; i < waveCount; i++) {
             waves.push({
-                yOffset: spacing * (i + 1),
+                time: 0,
+                speedJitter: 0.5 + Math.random() * 1.5,
+                offset: (i * Math.PI * 2) / waveCount,
+                yOffset: canvas.height / 2 + (i - waveCount / 2) * 40,
                 color: retroColors[i % retroColors.length]
             });
         }
-        let time = 0;
 
         function drawSineWave() {
             // Calculate base amplitude and frequency
@@ -99,7 +100,7 @@
                 const wave = waves[w];
                 ctx.beginPath();
                 ctx.strokeStyle = wave.color;
-                ctx.lineWidth = 16;
+                ctx.lineWidth = 24;
 
                 for (let x = 0; x < canvas.width; x++) {
                     // Calculate amplitude envelope: shrink to 1/8 at edges, full amplitude in center
@@ -107,7 +108,7 @@
                     const amplitudeScale = 1 / 8 + (1 - 1 / 8) * Math.sin(normalizedX * Math.PI);
                     const scaledAmplitude = amplitude * amplitudeScale;
 
-                    const y = wave.yOffset + Math.sin(x * frequency + time) * scaledAmplitude;
+                    const y = wave.yOffset + Math.sin(x * frequency + wave.time + wave.offset) * scaledAmplitude;
 
                     if (x === 0) {
                         ctx.moveTo(x, y);
@@ -117,10 +118,10 @@
                 }
 
                 ctx.stroke();
+                // Apply base speed with jitter and control multiplier
+                wave.time += baseSpeed * wave.speedJitter * baseSpeedMultiplier;
             }
 
-            // Move all waves together
-            time += baseSpeed * baseSpeedMultiplier;
             requestAnimationFrame(drawSineWave);
         }
 
