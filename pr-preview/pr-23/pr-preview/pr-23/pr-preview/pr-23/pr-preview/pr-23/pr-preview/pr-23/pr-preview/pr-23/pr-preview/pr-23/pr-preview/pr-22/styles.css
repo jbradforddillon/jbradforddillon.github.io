@@ -14,8 +14,8 @@ body {
     font-weight: 400;
     font-size: 1.125rem;
     line-height: 1.7;
-    color: #1e3a5a;
-    background: #f5f0e1;
+    color: #333;
+    background: #f8f9fa;
     min-height: 100vh;
     padding: 2rem;
     position: relative;
@@ -34,7 +34,7 @@ strong, b {
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: 1;
+    opacity: 0.3;
     pointer-events: none;
 }
 
@@ -55,6 +55,24 @@ strong, b {
     object-fit: cover;
     flex-shrink: 0;
     animation: fadeIn 1s ease-in;
+    cursor: pointer;
+}
+
+.profile-image.bouncing {
+    position: fixed;
+    z-index: 1000;
+    animation: spin 0.5s linear infinite;
+    transition: left 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+                top 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .content-section {
@@ -68,7 +86,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    color: #1a365d;
+    color: #212529;
     font-size: 4.5rem;
     line-height: 1.0;
     animation: fadeIn 1s ease-in;
@@ -76,7 +94,7 @@ h1 {
 }
 
 h2 {
-    color: #1a365d;
+    color: #212529;
     font-size: 2.5rem;
     line-height: 1.15;
     animation: fadeIn 1s ease-in 0.2s both;
@@ -91,7 +109,7 @@ h3 {
 
 
 .bio {
-    color: #2c4a6e;
+    color: #495057;
     font-size: 1.125rem;
     font-weight: 400;
     line-height: 1.7;
@@ -112,7 +130,7 @@ a:hover {
 }
 
 .bio a {
-    color: #1a365d;
+    color: #212529;
 }
 
 
@@ -194,7 +212,7 @@ a:hover {
     flex-wrap: wrap;
     gap: 0.5rem;
     font-size: 0.875rem;
-    color: #4a6b8a;
+    color: #6c757d;
 }
 
 .copyright {
@@ -202,11 +220,11 @@ a:hover {
 }
 
 .divider {
-    color: #7a9ab8;
+    color: #adb5bd;
 }
 
 .quip {
-    color: #5d7d9a;
+    color: #868e96;
 }
 
 @media (max-width: 768px) {
