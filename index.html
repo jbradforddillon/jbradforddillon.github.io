@@ -114,6 +114,76 @@
 
         drawSineWave();
 
+        // Avatar bounce animation
+        (function() {
+            const avatar = document.querySelector('.profile-image');
+            const avatarLink = avatar.parentElement;
+            let isAnimating = false;
+
+            avatar.addEventListener('click', function(e) {
+                if (isAnimating) return;
+                e.preventDefault();
+                e.stopPropagation();
+
+                isAnimating = true;
+
+                // Get original position
+                const rect = avatar.getBoundingClientRect();
+                const originalLeft = rect.left;
+                const originalTop = rect.top;
+                const size = rect.width;
+
+                // Set initial fixed position
+                avatar.style.left = originalLeft + 'px';
+                avatar.style.top = originalTop + 'px';
+                avatar.style.width = size + 'px';
+                avatar.style.height = size + 'px';
+                avatar.classList.add('bouncing');
+
+                // Generate random bounce positions
+                const bounceCount = 5 + Math.floor(Math.random() * 4); // 5-8 bounces
+                const positions = [];
+
+                for (let i = 0; i < bounceCount; i++) {
+                    positions.push({
+                        left: Math.random() * (window.innerWidth - size),
+                        top: Math.random() * (window.innerHeight - size)
+                    });
+                }
+
+                // Add return position
+                positions.push({ left: originalLeft, top: originalTop });
+
+                // Animate through positions
+                let currentBounce = 0;
+
+                function nextBounce() {
+                    if (currentBounce >= positions.length) {
+                        // Animation complete - clean up
+                        avatar.classList.remove('bouncing');
+                        avatar.style.left = '';
+                        avatar.style.top = '';
+                        avatar.style.width = '';
+                        avatar.style.height = '';
+                        isAnimating = false;
+                        return;
+                    }
+
+                    const pos = positions[currentBounce];
+                    avatar.style.left = pos.left + 'px';
+                    avatar.style.top = pos.top + 'px';
+
+                    currentBounce++;
+
+                    // Slow down as we approach home
+                    const delay = currentBounce === positions.length ? 600 : 400;
+                    setTimeout(nextBounce, delay);
+                }
+
+                // Start bouncing after a brief moment
+                setTimeout(nextBounce, 50);
+            });
+        })();
 
     </script>
 </body>
