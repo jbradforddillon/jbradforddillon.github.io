@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nevie and Liana's Graduation Party</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600&family=Montserrat:wght@400;500;600&display=swap');
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: #3a3a3a;
+      background: #f0efe9;
+      min-height: 100vh;
+    }
+
+    .hero {
+      position: relative;
+      background: url('img/bg.jpeg') top center / cover no-repeat;
+      min-height: 700px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px 80px;
+    }
+
+    .card-wrapper {
+      position: relative;
+      margin-top: 40px;
+    }
+
+    .card-shadow {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      width: 100%;
+      height: 100%;
+      background: #d8d5cb;
+      border-radius: 2px;
+      transform: rotate(2deg);
+    }
+
+    .card-img {
+      position: relative;
+      display: block;
+      max-width: 340px;
+      width: 100%;
+      border-radius: 2px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
+    }
+
+    .content {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 50px 20px 0;
+    }
+
+    .content h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 500;
+      font-size: 2rem;
+      color: #2d2d2d;
+      margin-bottom: 28px;
+    }
+
+    .content p {
+      font-size: 0.875rem;
+      line-height: 1.7;
+      color: #555;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+
+    .details {
+      max-width: 680px;
+      margin: 60px auto 0;
+      padding: 40px 20px 60px;
+      border-top: 1px solid #ddd;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+
+    .details-section {
+      text-align: center;
+    }
+
+    .details-section .label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 10px;
+    }
+
+    .details-section p {
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: #3a3a3a;
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        min-height: 500px;
+        padding: 40px 20px 60px;
+      }
+
+      .card-img {
+        max-width: 260px;
+      }
+
+      .content h1 {
+        font-size: 1.5rem;
+      }
+
+      .details {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="card-wrapper">
+      <div class="card-shadow"></div>
+      <img class="card-img" src="img/card.png" alt="Nevie and Liana's Graduation Party Invitation">
+    </div>
+  </section>
+
+  <div class="content">
+    <h1>Nevie and Liana's Graduation Party</h1>
+    <p>Drop in and wish our girls well as we celebrate these last four years of hard work and their future ahead.</p>
+  </div>
+
+  <div class="details">
+    <div class="details-section">
+      <div class="label">Date</div>
+      <p>Saturday, April 25<br>2:00PM &ndash; 5:00PM EDT</p>
+    </div>
+    <div class="details-section">
+      <div class="label">Address</div>
+      <p>The Falls of Cherokee Clubhouse<br>534 Transart Pkwy<br>Canton, GA &nbsp;30114<br>United States</p>
+    </div>
+  </div>
+
+</body>
+</html>
