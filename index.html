@@ -57,6 +57,19 @@
         const waveCount = 9;
         const baseSpeed = 0.0125;
 
+        // Retro color palette for waves
+        const retroColors = [
+            '#e07a5f',  // Terra cotta
+            '#d4a373',  // Tan/Mustard
+            '#2a9d8f',  // Teal
+            '#e9c46a',  // Saffron
+            '#f4a261',  // Sandy brown
+            '#264653',  // Dark teal
+            '#e76f51',  // Burnt sienna
+            '#8d99ae',  // Cool gray
+            '#bc6c25',  // Copper
+        ];
+
         // Create waves with randomized speeds and jitter factors
         const waves = [];
         for (let i = 0; i < waveCount; i++) {
@@ -65,7 +78,7 @@
                 speedJitter: 0.5 + Math.random() * 1.5,
                 offset: (i * Math.PI * 2) / waveCount,
                 yOffset: canvas.height / 2 + (i - waveCount / 2) * 40,
-                opacity: 0.3 - i * 0.05
+                color: retroColors[i % retroColors.length]
             });
         }
 
@@ -78,16 +91,16 @@
             const amplitude = baseAmplitude * baseAmplitudeMultiplier;
             const frequency = baseFrequency * baseFrequencyMultiplier;
 
-            // Clear with white background
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+            // Clear with beige background
+            ctx.fillStyle = '#f5f0e1';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // Draw multiple sine waves with individual speeds
             for (let w = 0; w < waveCount; w++) {
                 const wave = waves[w];
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(0, 0, 0, ${wave.opacity})`;
-                ctx.lineWidth = 1;
+                ctx.strokeStyle = wave.color;
+                ctx.lineWidth = 32;
 
                 for (let x = 0; x < canvas.width; x++) {
                     // Calculate amplitude envelope: shrink to 1/8 at edges, full amplitude in center
